@@ -1,0 +1,28 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: podinfo
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: podinfo
+      annotations:
+        prometheus.io/scrape: 'true'
+    spec:
+      containers:
+      - name: podinfod
+        image: nginx:1.8.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "1m"
+          limits:
+            memory: "256Mi"
+            cpu: "100m"
